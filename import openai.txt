@@ -1,0 +1,36 @@
+import openai
+
+def parse_resume_to_json(resume_text):
+    response = openai.Completion.create(
+      engine="text-davinci-003",
+      prompt=f"Please parse the content of my resume provided below into JSON format. The JSON should include key sections such as `Contact Information`, `Summary`, `Experience`, `Education`, `Skills`, `Projects`, and any other relevant sections. Here's the content of my resume:\n\n{resume_text}",
+      max_tokens=1500
+    )
+    return response.choices[0].text.strip()
+
+# Example usage
+resume_text = """
+John Doe
+Email: johndoe@example.com
+Phone: 123-456-7890
+
+Summary:
+Experienced software engineer with a background in AI and machine learning...
+
+Experience:
+- Software Engineer at ABC Corp (Jan 2020 - Present)
+  Worked on developing and optimizing machine learning models...
+
+Education:
+- B.S. in Computer Science, XYZ University (2016 - 2020)
+
+Skills:
+- Python, Java, Machine Learning, Data Analysis...
+
+Projects:
+- AI-based Heart Disease Prediction System: Developed using various ML algorithms...
+
+"""
+
+json_output = parse_resume_to_json(resume_text)
+print(json_output)
